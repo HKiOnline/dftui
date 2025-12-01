@@ -1,0 +1,10 @@
+# Ignored Git files
+
+## Binaries and project related output
+dftui
+
+## OS related files
+.DS_Store
+
+## Editor related files
+.opencode
