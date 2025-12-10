@@ -1,6 +1,6 @@
 # Characters JSON-format character sheets
 
-Dark Fate as a role-playing game is character focused. Generally characters are divided into two groups: player and non-player characters or npcs. Dark Fate characters use Fate Condensed rules or expanded rules. Characters data is transported in JSON-format.
+Dark Fate as a role-playing game is character-focused. Generally, characters are divided into two groups: player characters and non-player characters (NPCs). Dark Fate characters use Fate Condensed rules or expanded rules. Character data is transported in JSON format.
 
 ## Human Characters
 
@@ -8,7 +8,7 @@ Human characters in Dark Fate use the basic Fate Condensed rules to create the c
 
 ## Vampire the Eternal Fate Characters
 
-Vampire the Eternal Fate has generally vampire, ghoul and human characters. Human characters are plain Fate Condensed characters. Ghoul characters are Fate Condensed characters with the permission to take limited supernatural stunts. Vampire characters are expanded Fate Condensed characters with additional properties such as blood potency, disciplines and an additional hunger -stress track.
+Vampire the Eternal Fate generally has vampire, ghoul, and human characters. Human characters are plain Fate Condensed characters. Ghoul characters are Fate Condensed characters with the permission to take limited supernatural stunts. Vampire characters are expanded Fate Condensed characters with additional properties such as blood potency, disciplines, and an additional hunger stress track.
 
 ## Ghoul Characters
 
@@ -16,7 +16,7 @@ Ghoul characters in Dark Fate use the basic Fate Condensed rules to create the c
 
 ## Character JSON-attributes
 
-Below are the character attributes used in JSON-format, their explanation, type and default value. If the attribute is used with only certain "spirit" or type of characters it is mentioned, otherwise the attribute is present in all character types.
+Below are the character attributes used in JSON format, their explanation, type, and default value. If the attribute is used with only certain "spirit" or type of characters, it is mentioned; otherwise, the attribute is present in all character types.
 
   - id: unique identifier of the character used in data storages (string, default uuid v4)
   - player: username of the player, (string, default ""), npc-characters' player uses the username of the gamemaster
@@ -35,14 +35,14 @@ Below are the character attributes used in JSON-format, their explanation, type 
   - aspects: list of character aspects, (array of objects, see character aspect defaults)
   - skills: list of character skills, (array of objects, see skill defaults)
   - stunts: list of character stunts, (array of objects, see stunt defaults)
-  - disciplines: list of vampire disciplines, (array of objects, see discipline defaults), only with in vampire characters
+  - disciplines: list of vampire disciplines, (array of objects, see discipline defaults), only in vampire characters
   - consequences: list of consequence aspects, (array of objects, see consequence defaults)
   - physicalStressLimit: physical stress slots available for the character, (number, default 3)
   - physicalStressCurrent: physical stress slots used, (number, default 0)
   - mentalStressLimit: mental stress slots available for the character, (number, default 3)
   - mentalStressCurrent: mental stress slots used, (number, default 0)
-  - hungerStressLimit: hunger stress slots available for the character, (number, default 3), only with in vampire characters
-  - hungerStressCurrent: hunger stress slots used, (number, default 0), only with in vampire characters
+  - hungerStressLimit: hunger stress slots available for the character, (number, default 3), only in vampire characters
+  - hungerStressCurrent: hunger stress slots used, (number, default 0), only in vampire characters
 
 ### Character aspect defaults
 
@@ -54,7 +54,7 @@ Characters with vampire spirit have high concept, trouble, clan and covenant asp
 
 Characters with ghoul spirit have high concept, trouble and covenant aspects and at least one relationship aspect. The mandatory relationship aspect depicts the ghouls relationship with its master. Optionally ghoul character may have also more relationships and free aspects.
 
-Character aspects are part of the aspects-attribute in the JSON-formatted character sheet. It is an array or objects. Each item, object, contains one aspect. Each aspect-object has type, title and description -attributes. Possible values for the type-attribute are high concept, trouble, relationship, free, clan and covenant strings. Title is a string used to display the name of the aspect. Description is a free form string used to explanation the effect of the aspects. The description is optional and may not always be present.
+Character aspects are part of the aspects attribute in the JSON-formatted character sheet. It is an array of objects. Each item (object) contains one aspect. Each aspect object has type, title, and description attributes. Possible values for the type attribute are high concept, trouble, relationship, free, clan, and covenant strings. Title is a string used to display the name of the aspect. Description is a free-form string used to explain the effect of the aspect. The description is optional and may not always be present.
 
 Below are the defaults for character aspects and their default values.
 
@@ -140,13 +140,13 @@ Below are the defaults for character aspects and their default values.
 
 ### Skill defaults
 
-Skills tell what characters can do. Below is are the skills and their default ratings. 
+Skills tell what characters can do. Below are the skills and their default ratings. 
 
-Skills in the JSON-format character sheet are array of objects. Each object contain attributes and values of a single skill. Each skill has title, group and rating. Title is a string. In the example below are all the values a skill title can have. Skill group is a string, it can have value of mental, physical or social. Rating is an integer number. The default is zero.
+Skills in the JSON-format character sheet are an array of objects. Each object contains attributes and values of a single skill. Each skill has title, group, and rating. Title is a string. In the example below are all the values a skill title can have. Skill group is a string; it can have a value of mental, physical, or social. Rating is an integer number. The default is zero.
 
 All character spirit types use the same skills.
 
-Note: Dark Fate uses "larceny" insted of "burglary" as the skill title for burglary-skill.
+Note: Dark Fate uses "larceny" instead of "burglary" as the skill title for the burglary skill.
 
 ```json
 "skills": [
@@ -257,7 +257,7 @@ Note: Dark Fate uses "larceny" insted of "burglary" as the skill title for burgl
 
 Fate Condensed tells that "stunts are the cool techniques, tricks, or bits of equipment that make characters unique and interesting."
 
-Stunts in the JSON-format characters sheet are stored in an array of objects called stunts. Each object represent one stunt. Each stunt has title and description. Title is a string, used as a display name. Description is a free form string, longer explanation what the stunt accomplishes. 
+Stunts in the JSON-format character sheet are stored in an array of objects called stunts. Each object represents one stunt. Each stunt has title and description. Title is a string, used as a display name. Description is a free-form string, a longer explanation of what the stunt accomplishes. 
 
 Below is an example of stunts array with one stunt with its title and description empty, which is the default. Each character has typically three stunts. All character spirit types use the same format.
 
@@ -274,7 +274,7 @@ Below is an example of stunts array with one stunt with its title and descriptio
 
 Disciplines are unique to characters with vampire spirit. No other characters have them.
 
-Disciplines in JSON-format character sheet are stored in an array of objects called disciplines. Each object represent one discipline. Each discipline has title and rating. Title is a string and used as the display name. Rating is a number with zero as defaults. Often disciplines are displayed as a title and rating combination. For example Animalism 1 with the first letter capitalized in UIs.
+Disciplines in the JSON-format character sheet are stored in an array of objects called disciplines. Each object represents one discipline. Each discipline has title and rating. Title is a string and used as the display name. Rating is a number with zero as the default. Often disciplines are displayed as a title and rating combination. For example, Animalism 1 with the first letter capitalized in UIs.
 
 Below are all the disciplines in their default ratings and titles. Most characters have rating above 0 only in one or three disciplines.
 
@@ -351,9 +351,9 @@ Below are all the disciplines in their default ratings and titles. Most characte
 
 Fate Condensed tells that consequences "are new aspects you write on your character sheet when your character takes a hit, representing the real harm and injury your character suffers".
 
-In JSON-format character sheets consequences are an array of objects. Each object represent one consequence. Each consequence-object has level, isActive and title -attributes. Level is a number, possible values are 2, 4 and 6. The isActive-attribute tells if the consequence is in play. It is a boolean with default of false. Title is a string, used as the display name in UIs. Titles are filled only if the consequence isActive value is true.
+In JSON-format character sheets, consequences are an array of objects. Each object represents one consequence. Each consequence object has level, isActive, and title attributes. Level is a number; possible values are 2, 4, and 6. The isActive attribute tells if the consequence is in play. It is a boolean with a default of false. Title is a string, used as the display name in UIs. Titles are filled only if the consequence isActive value is true.
 
-Consequences-array has by default three consequence-objects with levels of 2, 4 and 6. Some arrays may have an additional second level 2 consequence-object. All character spirit types use the same format. Below is an example of the typical consequences-array.
+The consequences array has by default three consequence objects with levels of 2, 4, and 6. Some arrays may have an additional second level-2 consequence object. All character spirit types use the same format. Below is an example of the typical consequences array.
 
 ```json
 "consequences": [
@@ -381,5 +381,5 @@ Consequences-array has by default three consequence-objects with levels of 2, 4 
 - ghoul_character.json - ghoul character sheet in JSON-format
 - human_character.json - human character sheet in JSON-format
 
-Note, this document overrides any inconsistencies in the example JSON-files listed above.
+Note: this document overrides any inconsistencies in the example JSON files listed above.
 
