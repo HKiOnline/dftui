@@ -1,0 +1,226 @@
+{
+  "id": "",
+  "player": "",
+  "category": "character",
+  "spirit": "vampire", 
+  "group": "pc",
+  "name": "",
+  "gender": "",
+  "aliases": [""],
+  "tags": [""],
+  "collectives": [""],
+  "embrace_year": 1982,
+  "setting_year": 1982,
+  "description": "",
+  "notes": "",
+  "refresh": 3,
+  "aspects": [
+    {
+      "type": "high concept",
+      "title": ""
+    },
+    {
+      "type": "trouble",
+      "title": ""
+    },
+    {
+      "type": "clan",
+      "title": ""
+    },
+    {
+      "type": "covenant",
+      "title": ""
+    }
+  ],
+  "skills": [
+    {
+      "title": "academics",
+	  "group": "mental",
+      "rating": 0
+    },
+	{
+      "title": "athletics",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "contacts",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "crafts",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "deceive",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "drive",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "empathy",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "fight",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "investigate",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "larceny",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "lore",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "notice",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "physique",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "provoke",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "rapport",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "resources",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "shoot",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "stealth",
+	  "group": "physical",
+      "rating": 0
+    },
+	{
+      "title": "technology",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "will",
+	  "group": "social",
+      "rating": 0
+    }
+  ],
+  "disciplines": [
+	{
+      "title": "animalism",
+      "rating": 0
+    },
+	{
+      "title": "auspex",
+      "rating": 0
+    },
+	{
+      "title": "celerity",
+      "rating": 0
+    },
+	{
+      "title": "dominate",
+      "rating": 0
+    },
+	{
+      "title": "majesty",
+      "rating": 0
+    },
+	{
+      "title": "nightmare",
+      "rating": 0
+    },
+	{
+      "title": "obfuscate",
+      "rating": 0
+    },
+    {
+      "title": "protean",
+      "rating": 0
+    },
+    {
+      "title": "resilience",
+      "rating": 0
+    },
+	{
+      "title": "vigor",
+      "rating": 0
+    },
+    {
+      "title": "coils of the ascendant",
+      "rating": 0
+    },
+    {
+      "title": "coils of the sanguine",
+      "rating": 0
+    },
+    {
+      "title": "coils of the wyrm",
+      "rating": 0
+    },
+    {
+      "title": "coils of the voivode",
+      "rating": 0
+    },
+    {
+      "title": "crúac",
+      "rating": 0
+    },
+    {
+      "title": "theban sorcery",
+      "rating": 0
+    }
+  ],
+  "physicalStressLimit": 3,
+  "physicalStressCurrent": 0,
+  "mentalStressLimit": 3,
+  "mentalStressCurrent": 0,
+  "hungerStressLimit": 3,
+  "hungerStressCurrent": 0,
+  "consequences": [
+    {
+      "level": 2,
+      "isActive": false,
+      "title": ""
+    },
+    {
+      "level": 4,
+      "isActive": false,
+      "title": ""
+    },
+    {
+      "level": 6,
+      "isActive": false,
+      "title": ""
+    }
+  ]
+}

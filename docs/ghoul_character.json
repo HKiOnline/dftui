@@ -1,0 +1,149 @@
+{
+  "id": "",
+  "player": "",
+  "category": "character",
+  "spirit": "ghoul", 
+  "group": "npc",
+  "name": "",
+  "gender": "",
+  "aliases": [""],
+  "tags": [""],
+  "collectives": [""],
+  "setting_year": 1982,
+  "description": "",
+  "notes": "",
+  "refresh": 3,
+  "aspects": [
+    {
+      "type": "high concept",
+      "title": ""
+    },
+    {
+      "type": "trouble",
+      "title": ""
+    }
+  ],
+  "skills": [
+    {
+      "title": "academics",
+	  "group": "mental",
+      "rating": 0
+    },
+	{
+      "title": "athletics",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "contacts",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "crafts",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "deceive",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "drive",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "empathy",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "fight",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "investigate",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "larceny",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "lore",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "notice",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "physique",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "provoke",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "rapport",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "resources",
+	  "group": "social",
+      "rating": 0
+    },
+    {
+      "title": "shoot",
+	  "group": "physical",
+      "rating": 0
+    },
+    {
+      "title": "stealth",
+	  "group": "physical",
+      "rating": 0
+    },
+	{
+      "title": "technology",
+	  "group": "mental",
+      "rating": 0
+    },
+    {
+      "title": "will",
+	  "group": "social",
+      "rating": 0
+    }
+  ],
+  "physicalStressLimit": 3,
+  "physicalStressCurrent": 0,
+  "mentalStressLimit": 3,
+  "mentalStressCurrent": 0,
+  "consequences": [
+    {
+      "level": 2,
+      "isActive": false,
+      "title": ""
+    },
+    {
+      "level": 4,
+      "isActive": false,
+      "title": ""
+    },
+    {
+      "level": 6,
+      "isActive": false,
+      "title": ""
+    }
+  ]
+}
