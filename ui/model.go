@@ -20,6 +20,14 @@ const (
 	TabFateTracker
 )
 
+// CharacterViewMode represents the current view mode in the Characters tab
+type CharacterViewMode int
+
+const (
+	CharacterViewList CharacterViewMode = iota
+	CharacterViewDetail
+)
+
 // TabInfo holds display information for tabs
 type TabInfo struct {
 	Name string
@@ -38,21 +46,27 @@ var tabs = []TabInfo{
 // It follows the Elm architecture: Model -> Update -> View
 // See: https://github.com/charmbracelet/bubbletea
 type Model struct {
-	username   string
-	activeTab  Tab
-	characters []models.Character
-	backend    services.Backend
-	err        error
-	width      int
-	height     int
+	username               string
+	activeTab              Tab
+	characters             []models.Character
+	backend                services.Backend
+	err                    error
+	width                  int
+	height                 int
+	selectedCharacterIndex int               // Index of currently selected character in list (0-based, -1 if none)
+	characterViewMode      CharacterViewMode // Current view mode in Characters tab (list or detail)
+	selectedCharacter      *models.Character // Currently selected character for detail view
 }
 
 // NewModel creates a new UI model
 func NewModel(username string, backend services.Backend) Model {
 	return Model{
-		username:  username,
-		activeTab: TabCharacters,
-		backend:   backend,
+		username:               username,
+		activeTab:              TabCharacters,
+		backend:                backend,
+		selectedCharacterIndex: 0,                 // Start with first character selected
+		characterViewMode:      CharacterViewList, // Start in list view
+		selectedCharacter:      nil,               // No character selected initially
 	}
 }
 
@@ -96,6 +110,42 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "5":
 			m.activeTab = TabFateTracker
 			return m, nil
+
+		case "up":
+			// Navigate up in character list (only in Characters tab, list view)
+			if m.activeTab == TabCharacters && m.characterViewMode == CharacterViewList && len(m.characters) > 0 {
+				if m.selectedCharacterIndex > 0 {
+					m.selectedCharacterIndex--
+				}
+			}
+			return m, nil
+
+		case "down":
+			// Navigate down in character list (only in Characters tab, list view)
+			if m.activeTab == TabCharacters && m.characterViewMode == CharacterViewList && len(m.characters) > 0 {
+				if m.selectedCharacterIndex < len(m.characters)-1 {
+					m.selectedCharacterIndex++
+				}
+			}
+			return m, nil
+
+		case "enter":
+			// Select character and switch to detail view (only in Characters tab, list view)
+			if m.activeTab == TabCharacters && m.characterViewMode == CharacterViewList && len(m.characters) > 0 {
+				if m.selectedCharacterIndex >= 0 && m.selectedCharacterIndex < len(m.characters) {
+					m.selectedCharacter = &m.characters[m.selectedCharacterIndex]
+					m.characterViewMode = CharacterViewDetail
+				}
+			}
+			return m, nil
+
+		case "esc":
+			// Return to list view from detail view (only in Characters tab, detail view)
+			if m.activeTab == TabCharacters && m.characterViewMode == CharacterViewDetail {
+				m.characterViewMode = CharacterViewList
+				m.selectedCharacter = nil
+			}
+			return m, nil
 		}
 
 	case tea.WindowSizeMsg:
@@ -108,6 +158,12 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// Characters loaded from backend
 		m.characters = msg.characters
 		m.err = msg.err
+		// Select first character if list is not empty
+		if len(m.characters) > 0 {
+			m.selectedCharacterIndex = 0
+		} else {
+			m.selectedCharacterIndex = -1
+		}
 		return m, nil
 	}
 
@@ -189,7 +245,18 @@ func (m Model) renderHelp() string {
 		Foreground(lipgloss.Color("241")).
 		Padding(0, 2)
 
-	help := "Tab/→: Next | Shift+Tab/←: Previous | 1-5: Jump to tab | q: Quit"
+	var help string
+	// Context-sensitive help based on current tab and view mode
+	if m.activeTab == TabCharacters {
+		if m.characterViewMode == CharacterViewList {
+			help = "↑/↓: Navigate | Enter: View Details | Tab/→: Next | Shift+Tab/←: Previous | 1-5: Jump to tab | q: Quit"
+		} else if m.characterViewMode == CharacterViewDetail {
+			help = "ESC: Back to List | Tab/→: Next | Shift+Tab/←: Previous | 1-5: Jump to tab | q: Quit"
+		}
+	} else {
+		help = "Tab/→: Next | Shift+Tab/←: Previous | 1-5: Jump to tab | q: Quit"
+	}
+
 	return helpStyle.Render(help)
 }
 
