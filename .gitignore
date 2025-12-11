@@ -8,3 +8,7 @@ dftui
 
 ## Editor related files
 .opencode
+
+## Temporarily ignored files
+db
+samples
