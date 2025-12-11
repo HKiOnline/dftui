@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
-	"github.com/hkionline/dftui/models"
+	"github.com/hkionline/dftui/dflib/dfm"
 )
 
 // renderCharactersTab renders the Characters tab content
@@ -61,7 +61,7 @@ func (m Model) renderCharacterDetail() string {
 
 	// Determine type label and color
 	var typeDisplay string
-	if char.Type == models.PC {
+	if char.Group == string(dfm.PC) {
 		typeDisplay = lipgloss.NewStyle().
 			Foreground(lipgloss.Color("10")).
 			Bold(true).
@@ -95,11 +95,11 @@ func (m Model) renderCharacterDetail() string {
 }
 
 // renderCharacter renders a single character line with type indicator and optional selection highlight
-func renderCharacter(char models.Character, isSelected bool) string {
+func renderCharacter(char dfm.Character, isSelected bool) string {
 	var typeStyle lipgloss.Style
 	var typeLabel string
 
-	if char.Type == models.PC {
+	if char.Group == string(dfm.PC) {
 		// Player Character - highlight in green
 		typeStyle = lipgloss.NewStyle().
 			Foreground(lipgloss.Color("10")).
