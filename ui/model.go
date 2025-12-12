@@ -5,7 +5,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/hkionline/dftui/models"
+	"github.com/hkionline/dftui/dflib/dfm"
 	"github.com/hkionline/dftui/services"
 )
 
@@ -48,14 +48,14 @@ var tabs = []TabInfo{
 type Model struct {
 	username               string
 	activeTab              Tab
-	characters             []models.Character
+	characters             []dfm.Character
 	backend                services.Backend
 	err                    error
 	width                  int
 	height                 int
 	selectedCharacterIndex int               // Index of currently selected character in list (0-based, -1 if none)
 	characterViewMode      CharacterViewMode // Current view mode in Characters tab (list or detail)
-	selectedCharacter      *models.Character // Currently selected character for detail view
+	selectedCharacter      *dfm.Character    // Currently selected character for detail view
 }
 
 // NewModel creates a new UI model
@@ -262,7 +262,7 @@ func (m Model) renderHelp() string {
 
 // charactersLoadedMsg is sent when characters are loaded from backend
 type charactersLoadedMsg struct {
-	characters []models.Character
+	characters []dfm.Character
 	err        error
 }
 
