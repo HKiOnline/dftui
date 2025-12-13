@@ -31,7 +31,8 @@ Below are the character attributes used in JSON format, their explanation, type,
   - embrace_year: year, positive if after Christ, negative if before (number, default 1982)
   - setting_year: year, positive if after Christ, negative if before (number, default 1982)  "description": "",
   - notes: free form notes about the character (string, default "")
-  - "refresh": fate point refresh, (number, default 3)
+  - refresh: fate point refresh, (number, default 3)
+  - bloodPotency: potency of vampire's blood, (number, default 1), only in vampire characters
   - aspects: list of character aspects, (array of objects, see character aspect defaults)
   - skills: list of character skills, (array of objects, see skill defaults)
   - stunts: list of character stunts, (array of objects, see stunt defaults)
@@ -142,7 +143,7 @@ Below are the defaults for character aspects and their default values.
 
 Skills tell what characters can do. Below are the skills and their default ratings. 
 
-Skills in the JSON-format character sheet are an array of objects. Each object contains attributes and values of a single skill. Each skill has title, group, and rating. Title is a string. In the example below are all the values a skill title can have. Skill group is a string; it can have a value of mental, physical, or social. Rating is an integer number. The default is zero.
+Skills in the JSON-format character sheet are an array of objects. Each object contains attributes and values of a single skill. Each skill has title, group, and rating. Title is a string. In the example below are all the values a skill title can have. Skill group is a string; it can have a value of mental, physical, or social. Rating is an integer number. The default is zero, 0.
 
 All character spirit types use the same skills.
 

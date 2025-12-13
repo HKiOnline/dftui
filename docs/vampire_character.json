@@ -14,6 +14,7 @@
   "description": "",
   "notes": "",
   "refresh": 3,
+  "bloodPotency": 1,
   "aspects": [
     {
       "type": "high concept",

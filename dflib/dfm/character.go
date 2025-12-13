@@ -33,6 +33,8 @@ type Character struct {
 	Notes string `json:"notes" yaml:"notes"`
 	// Refresh is the fate point refresh value (default 3)
 	Refresh int `json:"refresh" yaml:"refresh"`
+	// BloodPotency is the potency of vampire's blood (vampire spirit only)
+	BloodPotency int `json:"bloodPotency,omitempty" yaml:"bloodPotency,omitempty"`
 	// Aspects is the list of character aspects
 	Aspects []Aspect `json:"aspects" yaml:"aspects"`
 	// Skills is the list of character skills
