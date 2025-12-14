@@ -1,6 +1,6 @@
 # Dark Fate Terminal UI
 
-Dark Fate Terminal UI is a front-end for Dark Fate RPG manager accessible via SSH. It is built in Go language and uses the wonderful Charm Wish -framework.
+Dark Fate Terminal UI is a front-end for Dark Fate RPG manager accessible via SSH. It is built in Go language and uses the wonderful Charm Wish framework.
 
 
 ## Features
@@ -46,12 +46,29 @@ Sessions are gaming sessions set in a specific campaing. They include notes from
 
 README and session notes should be stored as markdown files and displayed as text. Fate session tracker and dice roller results should be stored as JSON-files. They are displayed as a fate session tracker and dice roller UI view built with Wish. Chronicle and campaing resource files are blob files downloaded and not displayed in the TUI.
 
+**Character Data Storage**
+
+Character data is stored as JSON files in the `db/characters` directory. Each character file should follow the format specified in `docs/characters_json_format.md`. The application automatically loads all `.json` files from this directory when starting up.
+
 ## Building and Running
 
 ### Prerequisites
 
 - Go 1.21 or later
 - SSH client (for connecting to the server)
+
+### Character Data Setup
+
+Create a `db/characters` directory and add character JSON files:
+
+```bash
+mkdir -p db/characters
+cp docs/vampire_character.json db/characters/
+cp docs/ghoul_character.json db/characters/
+cp docs/human_character.json db/characters/
+```
+
+Edit the sample character files to match your game setup, or create new ones following the format in `docs/characters_json_format.md`.
 
 ### Build
 
