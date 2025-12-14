@@ -136,12 +136,12 @@ func (m Model) renderCharacterDetail() string {
 
 	// Year information (embrace or setting year)
 	if char.EmbraceYear != 0 {
-		lines = append(lines, fmt.Sprintf("%s %d",
+		lines = append(lines, fmt.Sprintf("%s %s",
 			labelStyle.Render("Embrace:"),
 			valueStyle.Render(fmt.Sprintf("%d", char.EmbraceYear))))
 	}
 	if char.SettingYear != 0 && char.SettingYear != char.EmbraceYear {
-		lines = append(lines, fmt.Sprintf("%s %d",
+		lines = append(lines, fmt.Sprintf("%s %s",
 			labelStyle.Render("Setting:"),
 			valueStyle.Render(fmt.Sprintf("%d", char.SettingYear))))
 	}
@@ -151,15 +151,15 @@ func (m Model) renderCharacterDetail() string {
 		lines = append(lines, "")
 		lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Vampire Information:"))
 		if char.BloodPotency > 0 {
-			lines = append(lines, fmt.Sprintf("%s %d",
+			lines = append(lines, fmt.Sprintf("%s %s",
 				labelStyle.Render("Blood Potency:"),
 				valueStyle.Render(fmt.Sprintf("%d", char.BloodPotency))))
 		}
 		if char.HungerStressLimit > 0 {
-			lines = append(lines, fmt.Sprintf("%s %d/%d",
+			lines = append(lines, fmt.Sprintf("%s %s/%s",
 				labelStyle.Render("Hunger:"),
 				valueStyle.Render(fmt.Sprintf("%d", char.HungerStressCurrent)),
-				fmt.Sprintf("%d", char.HungerStressLimit)))
+				valueStyle.Render(fmt.Sprintf("%d", char.HungerStressLimit))))
 		}
 	}
 
