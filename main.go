@@ -28,8 +28,11 @@ var (
 func main() {
 	flag.Parse()
 
-	// Initialize backend service (stub for now)
-	backend := services.NewStubBackend()
+	// Initialize backend service using dfdb
+	backend, err := services.NewDFDBBackend()
+	if err != nil {
+		log.Fatal("Failed to initialize backend:", err)
+	}
 
 	// Determine host key path
 	keyPath := *hostKey
