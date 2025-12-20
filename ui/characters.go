@@ -108,9 +108,13 @@ func (m Model) renderCharacterDetail() string {
 	lines = append(lines, fmt.Sprintf("%s %s",
 		labelStyle.Render("Name:"),
 		valueStyle.Render(char.Name)))
-	lines = append(lines, fmt.Sprintf("%s %s",
-		labelStyle.Render("ID:"),
-		valueStyle.Render(char.ID)))
+
+	if char.Player != "" {
+		lines = append(lines, fmt.Sprintf("%s %s",
+			labelStyle.Render("Player:"),
+			valueStyle.Render(char.Player)))
+	}
+
 	lines = append(lines, fmt.Sprintf("%s %s",
 		labelStyle.Render("Type:"),
 		typeDisplay))
@@ -128,12 +132,6 @@ func (m Model) renderCharacterDetail() string {
 		labelStyle.Render("Spirit:"),
 		valueStyle.Render(spiritDisplay)))
 
-	if char.Player != "" {
-		lines = append(lines, fmt.Sprintf("%s %s",
-			labelStyle.Render("Player:"),
-			valueStyle.Render(char.Player)))
-	}
-
 	// Year information (embrace or setting year)
 	if char.EmbraceYear != 0 {
 		lines = append(lines, fmt.Sprintf("%s %s",
@@ -146,22 +144,15 @@ func (m Model) renderCharacterDetail() string {
 			valueStyle.Render(fmt.Sprintf("%d", char.SettingYear))))
 	}
 
-	// Spirit-specific information
-	if char.Spirit == string(dfm.SpiritVampire) {
-		lines = append(lines, "")
-		lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Vampire Information:"))
-		if char.BloodPotency > 0 {
-			lines = append(lines, fmt.Sprintf("%s %s",
-				labelStyle.Render("Blood Potency:"),
-				valueStyle.Render(fmt.Sprintf("%d", char.BloodPotency))))
-		}
-		if char.HungerStressLimit > 0 {
-			lines = append(lines, fmt.Sprintf("%s %s/%s",
-				labelStyle.Render("Hunger:"),
-				valueStyle.Render(fmt.Sprintf("%d", char.HungerStressCurrent)),
-				valueStyle.Render(fmt.Sprintf("%d", char.HungerStressLimit))))
-		}
-	}
+	// Fate section
+	lines = append(lines, "")
+	lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Fate:"))
+	lines = append(lines, fmt.Sprintf("%s %s",
+		labelStyle.Render("Refresh:"),
+		valueStyle.Render(fmt.Sprintf("%d", char.Refresh))))
+	lines = append(lines, fmt.Sprintf("%s %s",
+		labelStyle.Render("Points:"),
+		valueStyle.Render(fmt.Sprintf("%d", char.FatePoint))))
 
 	// Aspects
 	if len(char.Aspects) > 0 {
@@ -185,6 +176,29 @@ func (m Model) renderCharacterDetail() string {
 		}
 	}
 
+	// Beast and Blood section (vampire only) - moved after Aspects
+	if char.Spirit == string(dfm.SpiritVampire) {
+		lines = append(lines, "")
+		lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Beast and Blood:"))
+		if char.BloodPotency > 0 {
+			lines = append(lines, fmt.Sprintf("Blood Potency %d", char.BloodPotency))
+		}
+		// Disciplines moved here from Stunts section - now on one line
+		if len(char.Disciplines) > 0 {
+			var disciplineLines []string
+			for _, disc := range char.Disciplines {
+				if disc.Rating > 0 {
+					// Capitalize discipline names
+					capitalizedTitle := strings.Title(disc.Title)
+					disciplineLines = append(disciplineLines, fmt.Sprintf("%s %d", capitalizedTitle, disc.Rating))
+				}
+			}
+			if len(disciplineLines) > 0 {
+				lines = append(lines, fmt.Sprintf("Disciplines: %s", strings.Join(disciplineLines, ", ")))
+			}
+		}
+	}
+
 	// Skills (grouped by category)
 	if len(char.Skills) > 0 {
 		lines = append(lines, "")
@@ -195,7 +209,9 @@ func (m Model) renderCharacterDetail() string {
 		social := []string{}
 		for _, skill := range char.Skills {
 			if skill.Rating > 0 {
-				line := fmt.Sprintf("%s%d", skill.Title, skill.Rating)
+				// Capitalize skill name and add space before rating
+				capitalizedTitle := strings.Title(skill.Title)
+				line := fmt.Sprintf("%s %d", capitalizedTitle, skill.Rating)
 				if skill.Group == "mental" {
 					mental = append(mental, line)
 				} else if skill.Group == "physical" {
@@ -231,17 +247,6 @@ func (m Model) renderCharacterDetail() string {
 		}
 	}
 
-	// Disciplines (vampire only)
-	if len(char.Disciplines) > 0 && char.Spirit == string(dfm.SpiritVampire) {
-		lines = append(lines, "")
-		lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Disciplines:"))
-		for _, disc := range char.Disciplines {
-			if disc.Rating > 0 {
-				lines = append(lines, fmt.Sprintf("  %s %d", disc.Title, disc.Rating))
-			}
-		}
-	}
-
 	// Stress tracks
 	lines = append(lines, "")
 	lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Stress Tracks:"))
@@ -267,6 +272,13 @@ func (m Model) renderCharacterDetail() string {
 		}
 	}
 
+	// Notes section
+	if char.Notes != "" {
+		lines = append(lines, "")
+		lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Notes:"))
+		lines = append(lines, valueStyle.Render(char.Notes))
+	}
+
 	lines = append(lines, "")
 	lines = append(lines, lipgloss.NewStyle().
 		Foreground(lipgloss.Color("241")).
@@ -275,25 +287,8 @@ func (m Model) renderCharacterDetail() string {
 	return strings.Join(lines, "\n")
 }
 
-// renderCharacter renders a single character line with type indicator and optional selection highlight
+// renderCharacter renders a single character line with description and optional selection highlight
 func renderCharacter(char dfm.Character, isSelected bool) string {
-	var typeStyle lipgloss.Style
-	var typeLabel string
-
-	if char.Group == string(dfm.PC) {
-		// Player Character - highlight in green
-		typeStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("10")).
-			Bold(true)
-		typeLabel = "[PC]"
-	} else {
-		// Non-Player Character - show in yellow
-		typeStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("11")).
-			Bold(true)
-		typeLabel = "[NPC]"
-	}
-
 	nameStyle := lipgloss.NewStyle().
 		Foreground(lipgloss.Color("15"))
 
@@ -305,8 +300,24 @@ func renderCharacter(char dfm.Character, isSelected bool) string {
 		nameStyle = nameStyle.Background(lipgloss.Color("237"))
 	}
 
-	return fmt.Sprintf("%s%s %s",
-		cursor,
-		typeStyle.Render(typeLabel),
-		nameStyle.Render(char.Name))
+	// Prepare description - truncate to 50 characters if needed
+	description := char.Description
+	if len(description) > 50 {
+		description = description[:50] + "..."
+	}
+
+	// Format: cursor + name + " - " + description
+	var result string
+	if description != "" {
+		result = fmt.Sprintf("%s%s - %s",
+			cursor,
+			nameStyle.Render(char.Name),
+			lipgloss.NewStyle().Foreground(lipgloss.Color("241")).Render(description))
+	} else {
+		result = fmt.Sprintf("%s%s",
+			cursor,
+			nameStyle.Render(char.Name))
+	}
+
+	return result
 }

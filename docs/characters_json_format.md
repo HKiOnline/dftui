@@ -29,9 +29,11 @@ Below are the character attributes used in JSON format, their explanation, type,
   - tags: list of tags for the character, (array of strings, default [])
   - collectives: list of collectives the character is affiliated with, (array of strings, default [])
   - embrace_year: year, positive if after Christ, negative if before (number, default 1982)
-  - setting_year: year, positive if after Christ, negative if before (number, default 1982)  "description": "",
+  - setting_year: year, positive if after Christ, negative if before (number, default 1982)  
+  - description: short description of the character, keep it under 50 characters (string, default "")
   - notes: free form notes about the character (string, default "")
   - refresh: fate point refresh, (number, default 3)
+  - fatePoint: current fate points available, (number, default 0)
   - bloodPotency: potency of vampire's blood, (number, default 1), only in vampire characters
   - aspects: list of character aspects, (array of objects, see character aspect defaults)
   - skills: list of character skills, (array of objects, see skill defaults)
