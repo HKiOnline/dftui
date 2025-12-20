@@ -132,16 +132,6 @@ func (m Model) renderCharacterDetail() string {
 		labelStyle.Render("Spirit:"),
 		valueStyle.Render(spiritDisplay)))
 
-	// Fate section
-	lines = append(lines, "")
-	lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Fate:"))
-	lines = append(lines, fmt.Sprintf("%s %s",
-		labelStyle.Render("Refresh:"),
-		valueStyle.Render(fmt.Sprintf("%d", char.Refresh))))
-	lines = append(lines, fmt.Sprintf("%s %s",
-		labelStyle.Render("Points Available:"),
-		valueStyle.Render(fmt.Sprintf("%d", char.FatePoint))))
-
 	// Year information (embrace or setting year)
 	if char.EmbraceYear != 0 {
 		lines = append(lines, fmt.Sprintf("%s %s",
@@ -153,6 +143,16 @@ func (m Model) renderCharacterDetail() string {
 			labelStyle.Render("Setting:"),
 			valueStyle.Render(fmt.Sprintf("%d", char.SettingYear))))
 	}
+
+	// Fate section
+	lines = append(lines, "")
+	lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Fate:"))
+	lines = append(lines, fmt.Sprintf("%s %s",
+		labelStyle.Render("Refresh:"),
+		valueStyle.Render(fmt.Sprintf("%d", char.Refresh))))
+	lines = append(lines, fmt.Sprintf("%s %s",
+		labelStyle.Render("Points:"),
+		valueStyle.Render(fmt.Sprintf("%d", char.FatePoint))))
 
 	// Aspects
 	if len(char.Aspects) > 0 {
@@ -181,18 +181,20 @@ func (m Model) renderCharacterDetail() string {
 		lines = append(lines, "")
 		lines = append(lines, lipgloss.NewStyle().Bold(true).Render("Beast and Blood:"))
 		if char.BloodPotency > 0 {
-			lines = append(lines, fmt.Sprintf("%s %s",
-				labelStyle.Render("Blood Potency:"),
-				valueStyle.Render(fmt.Sprintf("%d", char.BloodPotency))))
+			lines = append(lines, fmt.Sprintf("Blood Potency %d", char.BloodPotency))
 		}
-		// Disciplines moved here from Stunts section
+		// Disciplines moved here from Stunts section - now on one line
 		if len(char.Disciplines) > 0 {
+			var disciplineLines []string
 			for _, disc := range char.Disciplines {
 				if disc.Rating > 0 {
 					// Capitalize discipline names
 					capitalizedTitle := strings.Title(disc.Title)
-					lines = append(lines, fmt.Sprintf("  %s %d", capitalizedTitle, disc.Rating))
+					disciplineLines = append(disciplineLines, fmt.Sprintf("%s %d", capitalizedTitle, disc.Rating))
 				}
+			}
+			if len(disciplineLines) > 0 {
+				lines = append(lines, fmt.Sprintf("Disciplines: %s", strings.Join(disciplineLines, ", ")))
 			}
 		}
 	}
